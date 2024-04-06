@@ -1,6 +1,9 @@
-﻿using Domain;
-using Application;
+﻿using Application;
 using Domain.Abstractions;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Domain.Models;
+using Domain.Utility;
 
 namespace UnitTests;
 
@@ -9,12 +12,14 @@ public class TollCalculatorTest
     private ITollCalculator _tollCalculator;
     private ITollFreeChecker _tollFreeChecker;
     private IPassageCost _passageCost;
-          
+    private Mock<ILogger<TollCalculator>> _loggerMock;
+
     [SetUp]
     public void Setup()
     {
+        _loggerMock = new Mock<ILogger<TollCalculator>>();
         _tollFreeChecker = new TollFreeChecker();
-        _tollCalculator = new TollCalculator(_tollFreeChecker);
+        _tollCalculator = new TollCalculator(_tollFreeChecker, _loggerMock.Object);
         _passageCost = new PassageCost();
     }
 

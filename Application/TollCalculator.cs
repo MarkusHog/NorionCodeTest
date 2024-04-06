@@ -1,14 +1,19 @@
 ﻿using Domain.Abstractions;
 using Domain.Utility;
+using Microsoft.Extensions.Logging;
 
 namespace Application;
-public class TollCalculator(ITollFreeChecker tollFeeChecker) : ITollCalculator
+public class TollCalculator(ITollFreeChecker tollFeeChecker, ILogger<TollCalculator> logger) : ITollCalculator
 {
     private readonly PassageCost _passageCost = new();
     private readonly ITollFreeChecker _tollFeeChecker = tollFeeChecker;
+    private readonly ILogger<TollCalculator> _logger = logger;
 
     public int GetTollFee(IVehicle vehicle, DateTime[] dates)
     {
+        try
+        {
+
         DateTime intervalStart = dates[0];
         int totalFee = 0;
         foreach (DateTime date in dates ?? [])
@@ -30,6 +35,12 @@ public class TollCalculator(ITollFreeChecker tollFeeChecker) : ITollCalculator
         }
         totalFee = totalFee > 60 ? 60 : totalFee;
         return totalFee;
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error in TollCalculator");
+            return 0;
+        }
     }
 
     private static bool IsWithinOneHour(DateTime intervalStart, DateTime date)

@@ -1,8 +1,13 @@
-﻿namespace Domain.Utility;
+﻿using Microsoft.Extensions.Logging;
+
+namespace Domain.Utility;
 
 //Easier to maintain if we have a class for holidays where we can add or delete holidays.
-public class Holidays
+public static class Holidays
 {
+
+
+
     public static bool IsHolidayOrDayBefore(DateTime date)
     {
         if (IsTollFree(date))

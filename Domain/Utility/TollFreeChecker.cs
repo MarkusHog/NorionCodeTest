@@ -1,4 +1,5 @@
 ﻿using Domain.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Domain.Utility;
 

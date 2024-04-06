@@ -6,6 +6,7 @@ using Domain.Utility;
 var builder = WebApplication.CreateBuilder(args);
 
 //Using dependency injection to inject the services make the code easier to decouple and build more modular.
+builder.Services.AddScoped<ILogger, Logger<TollCalculator>>();
 builder.Services.AddScoped<ITollCalculator, TollCalculator>(); 
 builder.Services.AddScoped<ITollFreeChecker, TollFreeChecker>();
 builder.Services.AddScoped<IVehicle, Car>();
