@@ -1,4 +1,4 @@
-﻿namespace Domain;
+﻿namespace Domain.Utility;
 
 //Easier to maintain if we have a class for holidays where we can add or delete holidays.
 public class Holidays
@@ -14,7 +14,6 @@ public class Holidays
             return true;
         }
         return false;
-        
     }
 
     private static bool IsTollFree(DateTime date)
