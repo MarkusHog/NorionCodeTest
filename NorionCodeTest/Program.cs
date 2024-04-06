@@ -1,11 +1,12 @@
+using Domain;
 using TollFeeCalculator;
+using Application;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped<ITollCalculator, TollCalculator>(); 
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
-
-var car = new Car();
-var fee = new TollCalculator().GetTollFee(car, new DateTime[] { DateTime.Now });
 
 app.Run();
